@@ -1,36 +1,143 @@
 ---
-title: "Untitled"
+title: "Template  raulgfc"
 output: 
   flexdashboard::flex_dashboard:
-    orientation: columns
-    vertical_layout: fill
+    orientation: rows
+runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
-library(flexdashboard)
+library("shiny")
+library("flexdashboard")
+library ("knitr")
+
 ```
 
-Column {data-width=650}
------------------------------------------------------------------------
 
-### Chart A
+
+Pagina 1 
+===================================== 
+
+Inputs {.sidebar}
+-------------------------------------
+```{r}
+
+``` 
+    
+Row
+-------------------------------------
+    
+### Quadro 1
+    
+```{r}
+
+```
+Row {tabset .tabset-fade}
+-------------------------------------
+    
+### Quadro 2.1
+    
+```{r, echo = FALSE}
+numericInput("rows", "Entrada Numerica", 0)
+
+```
+
+### Quadro 2.2
+    
+```{r}
+
+```  
+
+### Quadro 2.3
+    
+```{r}
+
+```  
+
+### Quadro 2.4
+    
+```{r}
+
+```  
+
+
+ 
+Row 
+-------------------------------------
+    
+### Quadro 3
+    
+```{r}
+
+```   
+    
+### Quadro 4
 
 ```{r}
 
 ```
 
-Column {data-width=350}
------------------------------------------------------------------------
+Row {.tabset .tabset-fade}
+-------------------------------------
 
-### Chart B
+### Quadro 5.1
+    
+```{r echo = FALSE, results = 'asis'}
+library(knitr)
+kable(mtcars[1:5, ], caption = "A knitr kable.")
+``` 
+    
+### Quadro 5.2
 
 ```{r}
 
 ```
 
-### Chart C
+### Quadro 5.3
+    
+```{r}
+
+```
+    
+### Quadro 5.4
 
 ```{r}
 
 ```
+
+Pagina 2 {data-orientation=rows}
+===================================== 
+
+---
+title: "Chart Stack"
+output: flexdashboard::flex_dashboard
+---
+    
+### Quadro 1
+    
+```{r}
+```{r, echo = FALSE}
+sliderInput("bins", "Number of bins:", min = 1, max = 50, value = 30)
+
+renderPlot({
+  x <- faithful[, 2]  # Old Faithful Geyser data
+  bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+  # draw the histogram with the specified number of bins
+  hist(x, breaks = bins, col = 'darkgray', border = 'white')
+})
+```
+```
+    
+### Quadro 2
+
+```{r, echo = FALSE}
+numericInput("rows", "How many cars?", 5)
+
+renderTable({
+  head(cars, input$rows)
+})
+```
+
+
 
